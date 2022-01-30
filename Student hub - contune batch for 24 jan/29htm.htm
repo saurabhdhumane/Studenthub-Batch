@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    pre {
+        background-color: grey;
+    }
+
+    nav{
+        padding: 12px;
+        background-color: hotpink;
+        display: flex;
+    }
+
+    nav a{
+        color: whitesmoke;
+        padding: 12px;
+        text-decoration: none;
+    
+    }
+</style>
+
+<body>
+
+    <!-- <p>
+        x = 5
+        print(type(x))
+    </p>
+
+    <pre>
+    <code>
+
+        
+        package com.example.tutorialspoint7.myapplication;
+
+    import android.app.AlertDialog;
+import android.app.Service;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.provider.Settings;
+import android.util.Log;
+
+public class GPSTracker extends Service implements LocationListener {
+
+   private final Context mContext;
+
+   // flag for GPS status
+   boolean isGPSEnabled = false;
+
+   // flag for network status
+   boolean isNetworkEnabled = false;
+
+   // flag for GPS status
+   boolean canGetLocation = false;
+
+   Location location; // location
+   double latitude; // latitude
+   double longitude; // longitude
+
+   // The minimum distance to change Updates in meters
+   private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
+
+   // The minimum time between updates in milliseconds
+   private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+
+   // Declaring a Location Manager
+   protected LocationManager locationManager;
+
+   public GPSTracker(Context context) {
+      this.mContext = context;
+      getLocation();
+   }
+
+   public Location getLocation() {
+      try {
+         locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
+
+         // getting GPS status
+         isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+         // getting network status
+         isNetworkEnabled = locationManager
+            .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+         if (!isGPSEnabled && !isNetworkEnabled) {
+            // no network provider is enabled
+         } else {
+            this.canGetLocation = true;
+            // First get location from Network Provider
+            if (isNetworkEnabled) {
+               locationManager.requestLocationUpdates(
+                  LocationManager.NETWORK_PROVIDER,
+                  MIN_TIME_BW_UPDATES,
+                  MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+						
+               Log.d("Network", "Network");
+               if (locationManager != null) {
+                  location = locationManager
+                     .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+							
+                  if (location != null) {
+                     latitude = location.getLatitude();
+                     longitude = location.getLongitude();
+                  }
+               }
+            }
+				
+            // if GPS Enabled get lat/long using GPS Services
+            if (isGPSEnabled) {
+               if (location == null) {
+                  locationManager.requestLocationUpdates(
+                     LocationManager.GPS_PROVIDER,
+                     MIN_TIME_BW_UPDATES,
+                     MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+							
+                  Log.d("GPS Enabled", "GPS Enabled");
+                  if (locationManager != null) {
+                     location = locationManager
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+								
+                     if (location != null) {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                     }
+                  }
+               }
+            }
+         }
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      return location;
+   }
+
+   /**
+      * Stop using GPS listener
+      * Calling this function will stop using GPS in your app
+   * */
+	
+   public void stopUsingGPS(){
+      if(locationManager != null){
+         locationManager.removeUpdates(GPSTracker.this);
+      }
+   }
+
+   /**
+      * Function to get latitude
+   * */
+	
+   public double getLatitude(){
+      if(location != null){
+         latitude = location.getLatitude();
+      }
+
+      // return latitude
+      return latitude;
+   }
+
+   /**
+      * Function to get longitude
+   * */
+	
+   public double getLongitude(){
+      if(location != null){
+         longitude = location.getLongitude();
+      }
+
+      // return longitude
+      return longitude;
+   }
+
+   /**
+      * Function to check GPS/wifi enabled
+      * @return boolean
+   * */
+	
+   public boolean canGetLocation() {
+      return this.canGetLocation;
+   }
+
+   /**
+      * Function to show settings alert dialog
+      * On pressing Settings button will lauch Settings Options
+   * */
+	
+   public void showSettingsAlert(){
+      AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
+
+      // Setting Dialog Title
+      alertDialog.setTitle("GPS is settings");
+
+      // Setting Dialog Message
+      alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+
+      // On pressing Settings button
+      alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+         public void onClick(DialogInterface dialog,int which) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            mContext.startActivity(intent);
+         }
+      });
+
+      // on pressing cancel button
+      alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+         public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+         }
+      });
+
+      // Showing Alert Message
+      alertDialog.show();
+   }
+
+   @Override
+   public void onLocationChanged(Location location) {
+   }
+
+   @Override
+   public void onProviderDisabled(String provider) {
+   }
+
+   @Override
+   public void onProviderEnabled(String provider) {
+   }
+
+   @Override
+   public void onStatusChanged(String provider, int status, Bundle extras) {
+   }
+
+   @Override
+   public IBinder onBind(Intent arg0) {
+      return null;
+   }
+}
+            </code>
+
+</pre>
+
+    <pre>
+    <code>
+        x=4;
+        y=5;
+        a=0;
+        print(x+y=a)
+    </code>
+</pre> -->
+
+
+  
+
+
+    <nav>
+        <a href="">
+        <img src="images/download.jpg" alt="" width="50">
+        </a>
+        <a href="#">Home</a>
+        <a href="#">Home1</a>
+        <a href="#">Home2</a>
+        <a href="#">Home3</a>
+        <a href="#">Home4</a>
+        <a href="#">Home5</a>
+        <a href="#">Home6</a>
+    </nav>
+
+      <section>
+        <h1>This is New Section</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam culpa eaque libero autem blanditiis
+            corporis molestiae quidem veniam reprehenderit enim magni corrupti quae dicta aliquid, dolorem molestias.
+            Beatae veniam quas excepturi et magnam necessitatibus dolor explicabo odio amet! Ab quia consequuntur autem
+            dolorum non, mollitia vero eum minima, ipsum, eveniet assumenda sit praesentium magni nihil provident ipsa.
+            Voluptatem nemo quod quibusdam voluptatum laudantium non. Nostrum eum quam nisi consectetur, maiores, nemo
+            minima maxime aut labore, autem distinctio obcaecati doloribus. Non soluta aut eum deserunt maxime ut
+            laboriosam laudantium quidem vero quas voluptate ex qui nam accusamus optio dolores, in maiores fugit
+            veritatis neque ratione. Sed culpa nemo placeat vero ad, optio distinctio voluptatibus dolor numquam
+            deserunt odio iste ullam quod minima ipsa sunt officia aliquam enim eligendi, dolores assumenda earum
+            doloremque? Veritatis quod in officiis, veniam enim facilis unde sed exercitationem? At corporis ex itaque.
+            Earum asperiores deserunt, iure dolorum facilis maiores eveniet aspernatur repellendus expedita veniam,
+            perspiciatis et unde consequatur quidem porro id dicta optio aut quia numquam aperiam quas. A sequi, modi
+            nesciunt accusantium at atque obcaecati veritatis dolores, ratione facilis saepe possimus qui expedita earum
+            mollitia nobis! Assumenda, animi repudiandae. Voluptas quia nemo saepe iste sit suscipit velit temporibus
+            itaque asperiores deserunt. Numquam, possimus, consequuntur commodi maxime nulla similique tempore sunt,
+            labore optio quae modi maiores eligendi! In, aperiam.</p>
+    </section>
+
+    <article>
+        <h1>this is my first article</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim, eveniet quam maxime labore recusandae
+            distinctio! Voluptatum tenetur sit voluptas sed provident a aliquid saepe deleniti. Dolores animi nostrum
+            sapiente ipsam maxime ipsum quo? Ex.</p>
+
+        <h6>good to go</h6>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae inventore eos autem officia! Placeat nulla
+            quisquam ratione sequi magni labore debitis reprehenderit tempora dolorem rem tenetur voluptatibus id
+            impedit corrupti libero, fugit non obcaecati at ipsum aliquid! Repellendus officia porro atque nulla! Iure,
+            dolor voluptatibus iste sint mollitia consequuntur minima doloremque omnis earum reiciendis cumque eligendi
+            eveniet beatae hic ratione repellat consectetur laborum magnam quidem vero! Obcaecati, esse architecto unde,
+            eveniet corporis veniam dolorum doloribus nemo doloremque consectetur, facere molestiae. Doloribus
+            consequatur eligendi assumenda reprehenderit doloremque quos id. Animi tenetur quas ratione officia.
+            Explicabo repellat tempora sequi eaque quisquam quae rem, laudantium accusantium assumenda consectetur
+            facilis, nemo voluptate aliquam quis doloribus et! Odio excepturi corporis dolorem esse explicabo! Odio
+            dolore corrupti minus maxime ipsum, cupiditate soluta totam dolores praesentium labore veniam numquam quos
+            distinctio atque, illo voluptas quod ea ipsa, in velit doloremque? Odit placeat aliquam ipsa veritatis
+            dolores nisi voluptas eaque autem voluptate, suscipit maiores eligendi, eveniet magnam porro, omnis ducimus.
+            Sint temporibus ratione, blanditiis veritatis, maxime voluptates iure illo sed aperiam doloremque odit saepe
+            corporis minima numquam sit dolorem culpa ipsa maiores. Laboriosam enim sit natus consequuntur quaerat quis
+            alias cum aut modi. Fugit inventore voluptatem soluta consectetur quisquam labore sapiente sequi deserunt
+            accusamus excepturi rerum fugiat, tenetur incidunt laudantium facilis eos unde, eveniet numquam obcaecati
+            reprehenderit ducimus maxime. Non unde ut fugiat quam eos a quasi harum assumenda rerum accusamus
+            repudiandae enim repellendus nihil ipsam odio, fuga ducimus tempore architecto iste modi tempora, neque,
+            repellat voluptates! Ad facere, autem a in quidem molestiae cumque, necessitatibus placeat nam omnis eos
+            nobis. Eos voluptatibus quae quasi obcaecati sapiente ex iure tempora voluptatum magni expedita quo
+            voluptate aliquam, culpa incidunt dolor, illo assumenda natus nesciunt esse corrupti ipsum provident!
+            Dignissimos odio illum nemo cupiditate recusandae dolores, itaque omnis minus amet provident consequuntur
+            maiores deleniti similique aspernatur totam non cumque voluptate accusantium nulla laudantium! Quidem,
+            aperiam earum. Iusto repellendus nisi et maiores neque aliquid reiciendis, ex qui ea velit culpa provident
+            nulla laborum, perspiciatis eum! Nostrum quaerat accusamus facere eaque iure voluptatibus eligendi
+            perspiciatis placeat rerum aut, et reiciendis dolores distinctio vero voluptatum recusandae odio
+            accusantium? Iusto eos sapiente quam deleniti, architecto magni provident voluptas aperiam beatae, harum
+            animi ipsum nostrum dicta veritatis commodi voluptatibus ab, natus perspiciatis odit. Quam, architecto
+            maxime dicta fuga rem praesentium ipsam magni repellat fugiat qui eos ab doloribus aliquid sunt placeat
+            atque quisquam, et nemo vitae magnam laborum. Assumenda, eius ut error repellendus optio reiciendis ipsa
+            provident aliquam nemo, animi at nam omnis ratione, quo nostrum laudantium. Nesciunt mollitia vitae
+            consequuntur facere recusandae laboriosam! Iure quidem quisquam aut veritatis ex non accusantium, harum eum.
+            Enim, expedita at? Necessitatibus tenetur repudiandae quo pariatur amet culpa vel omnis architecto delectus
+            excepturi, nemo odio nihil magnam exercitationem doloribus quae ipsum tempore consequuntur libero accusamus
+            soluta fugit sit minima. Maiores cumque fuga assumenda, vel eligendi distinctio dignissimos id suscipit.
+            Earum illo voluptatem dicta? Optio quod mollitia dignissimos perspiciatis numquam eligendi, vero tempora
+            quibusdam magni quam omnis quos error incidunt, ipsum eveniet veniam hic qui iure illum praesentium impedit.
+            Porro non architecto, doloribus molestias facere a dignissimos! Quia accusamus et ipsum odio tempora magnam
+            doloribus velit accusantium odit eaque quasi aut sit dignissimos veniam incidunt, deserunt repellat
+            voluptatem? Temporibus mollitia inventore neque numquam, ratione eius quaerat consectetur perferendis
+            quibusdam quas atque ullam voluptas voluptatem eveniet, natus officiis recusandae enim, quis unde voluptates
+            exercitationem tenetur id? Ratione ex itaque atque, quae quia labore ducimus dicta nisi voluptatum
+            recusandae facere fugit sapiente molestiae vero cum cumque sed, odio animi. Ab deleniti magni id odio, at
+            eius facilis molestias qui. Voluptatum minus quasi, commodi, doloremque voluptatem perferendis corrupti
+            perspiciatis quis ab reprehenderit ipsa explicabo quo dignissimos repellat tempore. Ab placeat incidunt,
+            velit obcaecati nisi consequatur animi molestiae commodi maiores magni beatae. Non quidem aliquam amet at
+            ea, maxime doloribus sunt sequi nulla aperiam voluptatem aut adipisci, ad blanditiis ut. Neque id, quia
+            perspiciatis quo iusto quis iure nemo aliquid laboriosam. Doloribus, excepturi sunt rem esse maiores
+            asperiores illum sint nemo recusandae quis, fuga atque iure dicta quo provident, temporibus culpa placeat.
+        <img src="images/download.jpg" alt="">
+        
+        </p>
+    </article> 
+</body>
+
+</html>

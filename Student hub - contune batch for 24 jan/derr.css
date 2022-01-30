@@ -1,0 +1,17 @@
+h3 {
+    color: springgreen;
+    font-size: x-large;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+p{
+    color: yellow;
+    background-color: tomato;
+    font-size: 22px;
+    font-weight: 900;  /* bold */
+    font-family: monospace;
+}

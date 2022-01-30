@@ -1,0 +1,13 @@
+/* body{
+    background-color: gold;
+} */
+/*
+this is a extenal file of css 
+*/
+
+/* we need to link this file with link attribute */
+
+
+p{
+    background-color: #ff0000;
+}
